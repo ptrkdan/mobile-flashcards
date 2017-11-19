@@ -1,5 +1,13 @@
 {
   "expo": {
-    "sdkVersion": "22.0.0"
+    "sdkVersion": "22.0.0",
+    "orientation": "portrait",
+    "name": "Mobile Flashcards",
+    "description": "Study flashcard app",
+    "slug": "mobileflashcards",
+    "android": {
+      "package": "org.mobileflashcards.exp"
+    }
+
   }
 }

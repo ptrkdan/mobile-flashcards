@@ -1,11 +1,25 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { NavigationActions } from 'react-navigation';
 import { beige, gray } from '../../utils/colours';
 
 class QuizResultsView extends Component {
 
+  toDeckView = (title) => {
+    this.props.navigation.dispatch(
+      NavigationActions.reset({
+        index: 1,
+        actions: [
+          NavigationActions.navigate({ routeName: 'Home' }),
+          NavigationActions.navigate({ routeName: 'IndividualDeckView', params: { title } })
+        ]
+      })
+    );
+  }
+
   render() {
     const { score, totalQuestions, navigation } = this.props;
+    const { deck } = navigation.state.params;
     return (
       <View style={styles.container}>
         <View style={{ flex: 1 }}>
@@ -14,11 +28,11 @@ class QuizResultsView extends Component {
         </View>
         <View style={{ flex: 1 }}>
           <TouchableOpacity style={styles.button}
-            onPress={() => navigation.navigate('Quiz', { deckName: 'TEST' })}>
+            onPress={() => navigation.navigate('QuizView', { deck })}>
             <Text style={styles.buttonText}>Restart Quiz</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.button}
-            onPress={() => navigation.navigate('IndividualDeck')}>
+            onPress={() => this.toDeckView(deck.title)}>
             <Text style={styles.buttonText}>Back to Deck</Text>
           </TouchableOpacity>
         </View>

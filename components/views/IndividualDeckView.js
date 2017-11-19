@@ -30,7 +30,7 @@ class IndividualDeckView extends Component {
         {
           deck.questions.length > 0 ? (
             <TouchableOpacity style={styles.button}
-              onPress={() => navigation.navigate('QuizView')}>
+              onPress={() => navigation.navigate('QuizView', { deck })}>
               <Text style={styles.buttonTitle}>Start a Quiz</Text>
             </TouchableOpacity>
           ) : null

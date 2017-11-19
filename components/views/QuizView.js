@@ -8,6 +8,7 @@ class QuizView extends Component {
     isQuestion: true,
     currentQuestion: 1,
     totalQuestions: 10,
+    questions: [],
     score: 0
   }
 
@@ -25,10 +26,11 @@ class QuizView extends Component {
   }
 
   componentDidMount() {
+    const { deck } = this.props.navigation.state.params;
     this.setState({
       isQuestion: true,
       currentQuestion: 1,
-      totalQuestions: 10,
+      totalQuestions: deck.questions.length,
       score: 0
     });
   }
@@ -36,18 +38,19 @@ class QuizView extends Component {
   render() {
     const { isQuestion, currentQuestion, totalQuestions, score } = this.state;
     const { navigation } = this.props;
+    const { deck } = navigation.state.params;
 
     if ( currentQuestion <= totalQuestions ) {
       return (
         <View style={styles.container}>
           <View style={styles.headerContainer}>
-            <Text style={styles.title}>{'[Deck Name]'}</Text>
+            <Text style={styles.title}>{deck.title}</Text>
             <Text style={styles.cardCount}>{currentQuestion} / {totalQuestions}</Text>
           </View>
           <View style={styles.quizContainer}>
           { isQuestion ? ( 
             <View style={{ flex: 1, justifyContent: 'space-between' }}>
-              <Text style={styles.question}>{'How much would could a woodchuck chuck if a woodchuck could chuck wood?'}</Text>
+              <Text style={styles.question}>{deck.questions[currentQuestion-1].question}</Text>
               <TouchableOpacity style={[styles.button, styles.toggleQAButton]}
                 onPress={this.toggleQA}>
                 <Text style={{ fontSize: 20, alignSelf: 'center' }}>Answer</Text>
@@ -55,7 +58,7 @@ class QuizView extends Component {
             </View>
           ) : (
             <View style={{ flex: 1, justifyContent: 'space-between' }}>
-              <Text style={styles.question}>{'A woodchuck could chuck as much wood as a woodchuck could chuck wood.'}</Text>
+              <Text style={styles.question}>{deck.questions[currentQuestion-1].answer}</Text>
               <TouchableOpacity style={[styles.button, styles.toggleQAButton]}
                 onPress={this.toggleQA}>
                 <Text style={{ fontSize: 20, alignSelf: 'center' }}>Question</Text>
