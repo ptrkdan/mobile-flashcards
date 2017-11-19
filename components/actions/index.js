@@ -10,7 +10,6 @@ function requestDecks() {
 
 export const GET_ALL_DECKS = 'GET_ALL_DECKS';
 function receiveAllDecks(decks) {
-  console.log('in action: ', decks);
   return {
     type: GET_ALL_DECKS,
     decks
@@ -41,11 +40,17 @@ export function addDeck(title) {
     dispatch(requestDecks());
 
     return AsyncAPI.addDeck(title)
-      .then( 
-        () => AsyncAPI.getDeck(title).then((value) => value),
-        (error) => alert('error: ' + JSON.stringify(error))
-      )
+      .then( () => AsyncAPI.getDeck(title).then( (value) => value) )
       .then( (deck) => dispatch(receiveDeck(deck)));
   };
 }
 
+export function addCard(title, card) {
+
+  return function(dispatch) {
+
+    return AsyncAPI.addCard(title, card)
+      .then( () => AsyncAPI.getDeck(title).then( (value) => value ) )
+      .then( (deck) => dispatch(receiveDeck(deck)));
+  };
+}

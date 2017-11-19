@@ -13,7 +13,6 @@ function decks(state = initState, action) {
         isFetching: true
       };
     case GET_ALL_DECKS:
-      console.log('in reducer: ', action.decks);
       return {
         isFetching: false,
         items: action.decks
