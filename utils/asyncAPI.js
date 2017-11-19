@@ -32,14 +32,18 @@ export const addDeck = (title) => {
 
 /* Add given question card to deck with given title. */
 export const addCard = (title, card) => {
-  return AsyncStorage.mergeItem(DECK_STORAGE_KEY,
-    JSON.stringify({
-      [title] : {
-        title,
-        questions: [card]
-      }
-    })
-  );
+  return getDeck(title)
+    .then( (deck) => {
+      deck.questions.push(card);
+      AsyncStorage.mergeItem(DECK_STORAGE_KEY,
+        JSON.stringify({
+          [title] : {
+            title,
+            questions: deck.questions
+          }
+        })
+      )
+    });
 }
 
 /* Clear all decks */

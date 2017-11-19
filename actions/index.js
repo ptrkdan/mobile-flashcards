@@ -1,4 +1,4 @@
-import * as AsyncAPI from '../../utils/asyncAPI';
+import * as AsyncAPI from '../utils/asyncAPI';
 
 export const REQUEST_DECKS = 'REQUEST_DECKS';
 function requestDecks() {

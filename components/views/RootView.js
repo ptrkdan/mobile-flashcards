@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import { retrieveAllDecks } from '../actions';
+import { retrieveAllDecks } from '../../actions';
 import Deck from '../common/Deck';
 import { white, beige, lightGreen } from '../../utils/colours';
 

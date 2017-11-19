@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
-import { addCard } from '../actions';
+import { NavigationActions } from 'react-navigation';
+import { addCard } from '../../actions';
 import { beige, lightGreen } from '../../utils/colours';
 
 class NewQuestionView extends Component {
@@ -24,6 +25,18 @@ class NewQuestionView extends Component {
     return (question && answer);
   }
 
+  toDeckView = (title) => {
+    this.props.navigation.dispatch(
+      NavigationActions.reset({
+        index: 1,
+        actions: [
+          NavigationActions.navigate({ routeName: 'Home' }),
+          NavigationActions.navigate({ routeName: 'IndividualDeckView', params: { title } })
+        ]
+      })
+    );
+  }
+
   submitQuestion = () => {
     const { question, answer } = this.state;
     const { dispatch, navigation } = this.props;
@@ -31,9 +44,7 @@ class NewQuestionView extends Component {
 
     if(this.validateForm(question, answer)) {
       dispatch(addCard(title, { question, answer }))
-        .then(
-          () => navigation.goBack(navigation.state.key, { title })
-        )
+        .then(() => this.toDeckView(title));
     }
 
   }

@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
-import { addDeck } from '../actions';
+import { NavigationActions } from 'react-navigation';
+import { addDeck } from '../../actions';
 import { beige, lightGreen } from '../../utils/colours';
 
 
@@ -11,6 +12,18 @@ class NewDeckView extends Component {
   state = {
     title: '',
     isTitleValid: true
+  }
+
+  toDeckView = (title) => {
+    this.props.navigation.dispatch(
+      NavigationActions.reset({
+        index: 1,
+        actions: [
+          NavigationActions.navigate({ routeName: 'Home' }),
+          NavigationActions.navigate({ routeName: 'IndividualDeckView', params: { title } })
+        ]
+      })
+    );
   }
 
   submitDeck = () => {
@@ -22,9 +35,7 @@ class NewDeckView extends Component {
     } else {
       this.setState({ isTitleValid: true });
       dispatch(addDeck(title))
-        .then(
-          () => navigation.navigate('IndividualDeckView', { title })
-        );      
+        .then(() => this.toDeckView(title));      
     }
   }
 
