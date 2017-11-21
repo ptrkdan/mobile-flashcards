@@ -3,24 +3,24 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { white, beige, lightGreen, darkGreen, red } from '../../utils/colours';
 import QuizResultsView from './QuizResultsView';
 
-const QuestionCard = ({ question }) => {
+const QuestionCard = ({ question, toggleQA }) => {
   return (
     <View style={{ flex: 1, justifyContent: 'space-between' }}>
       <Text style={styles.question}>{question}</Text>
       <TouchableOpacity style={[styles.button, styles.toggleQAButton]}
-        onPress={this.toggleQA}>
+        onPress={toggleQA}>
         <Text style={{ fontSize: 20, alignSelf: 'center' }}>Answer</Text>
       </TouchableOpacity>
     </View>
   );
 }
 
-const AnswerCard = ({ answer }) => {
+const AnswerCard = ({ answer, toggleQA }) => {
   return (
     <View style={{ flex: 1, justifyContent: 'space-between' }}>
       <Text style={styles.question}>{answer}</Text>
       <TouchableOpacity style={[styles.button, styles.toggleQAButton]}
-        onPress={this.toggleQA}>
+        onPress={toggleQA}>
         <Text style={{ fontSize: 20, alignSelf: 'center' }}>Question</Text>
       </TouchableOpacity>
     </View>
@@ -44,7 +44,10 @@ class QuizView extends Component {
     const { currentQuestion, totalQuestions } = this.state;
 
     if (currentQuestion <= totalQuestions ) {
-      this.setState ({ currentQuestion: this.state.currentQuestion + 1 });
+      this.setState ({ 
+        currentQuestion: this.state.currentQuestion + 1,
+        isQuestion: true
+       });
       this.selectNextCard();
     }
   }
@@ -83,9 +86,9 @@ class QuizView extends Component {
           </View>
           <View style={styles.quizContainer}>
           { isQuestion ? 
-            <QuestionCard question={card.question} />
+            <QuestionCard question={card.question} toggleQA={this.toggleQA} />
            :
-            <AnswerCard answer={card.answer} />
+            <AnswerCard answer={card.answer} toggleQA={this.toggleQA} />
           }
           </View>
           <View style={{ flex: 2 }}>
