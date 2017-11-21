@@ -3,13 +3,37 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { white, beige, lightGreen, darkGreen, red } from '../../utils/colours';
 import QuizResultsView from './QuizResultsView';
 
+const QuestionCard = ({ question }) => {
+  return (
+    <View style={{ flex: 1, justifyContent: 'space-between' }}>
+      <Text style={styles.question}>{question}</Text>
+      <TouchableOpacity style={[styles.button, styles.toggleQAButton]}
+        onPress={this.toggleQA}>
+        <Text style={{ fontSize: 20, alignSelf: 'center' }}>Answer</Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
+
+const AnswerCard = ({ answer }) => {
+  return (
+    <View style={{ flex: 1, justifyContent: 'space-between' }}>
+      <Text style={styles.question}>{answer}</Text>
+      <TouchableOpacity style={[styles.button, styles.toggleQAButton]}
+        onPress={this.toggleQA}>
+        <Text style={{ fontSize: 20, alignSelf: 'center' }}>Question</Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
+
 class QuizView extends Component {
-  state = {
-    isQuestion: true,
-    currentQuestion: 1,
-    totalQuestions: 10,
-    questions: [],
-    score: 0
+  
+
+  selectNextCard = () => {
+    const { questions } = this.state;
+
+    this.setState({ card: questions.splice(Math.floor(Math.random() * questions.length), 1)[0] });
   }
 
   toggleQA = () => {
@@ -17,7 +41,12 @@ class QuizView extends Component {
   }
 
   nextQuestion = () => {
-    this.setState ({ currentQuestion: this.state.currentQuestion + 1 });
+    const { currentQuestion, totalQuestions } = this.state;
+
+    if (currentQuestion <= totalQuestions ) {
+      this.setState ({ currentQuestion: this.state.currentQuestion + 1 });
+      this.selectNextCard();
+    }
   }
 
   increaseScore = () => {
@@ -25,18 +54,23 @@ class QuizView extends Component {
     this.nextQuestion();
   }
 
-  componentDidMount() {
-    const { deck } = this.props.navigation.state.params;
-    this.setState({
+  constructor(props) {
+    super(props);
+
+    const questions = this.props.navigation.state.params.deck.questions.slice();
+    this.state = {
       isQuestion: true,
       currentQuestion: 1,
-      totalQuestions: deck.questions.length,
+      totalQuestions: questions.length,
+      card: questions.splice(Math.floor(Math.random() * questions.length), 1)[0],
+      questions: questions,
       score: 0
-    });
+    };
+
   }
 
   render() {
-    const { isQuestion, currentQuestion, totalQuestions, score } = this.state;
+    const { isQuestion, currentQuestion, totalQuestions, questions, card, score } = this.state;
     const { navigation } = this.props;
     const { deck } = navigation.state.params;
 
@@ -48,23 +82,11 @@ class QuizView extends Component {
             <Text style={styles.cardCount}>{currentQuestion} / {totalQuestions}</Text>
           </View>
           <View style={styles.quizContainer}>
-          { isQuestion ? ( 
-            <View style={{ flex: 1, justifyContent: 'space-between' }}>
-              <Text style={styles.question}>{deck.questions[currentQuestion-1].question}</Text>
-              <TouchableOpacity style={[styles.button, styles.toggleQAButton]}
-                onPress={this.toggleQA}>
-                <Text style={{ fontSize: 20, alignSelf: 'center' }}>Answer</Text>
-              </TouchableOpacity>
-            </View>
-          ) : (
-            <View style={{ flex: 1, justifyContent: 'space-between' }}>
-              <Text style={styles.question}>{deck.questions[currentQuestion-1].answer}</Text>
-              <TouchableOpacity style={[styles.button, styles.toggleQAButton]}
-                onPress={this.toggleQA}>
-                <Text style={{ fontSize: 20, alignSelf: 'center' }}>Question</Text>
-              </TouchableOpacity>
-            </View>
-          )}
+          { isQuestion ? 
+            <QuestionCard question={card.question} />
+           :
+            <AnswerCard answer={card.answer} />
+          }
           </View>
           <View style={{ flex: 2 }}>
             <TouchableOpacity style={[styles.button, styles.buttonCorrect]}
@@ -79,7 +101,7 @@ class QuizView extends Component {
         </View>
       );
     } else {
-      return <QuizResultsView navigation={navigation} score={score} totalQuestions={totalQuestions} />
+      return <QuizResultsView navigation={navigation} deck={deck} score={score} totalQuestions={totalQuestions} />
     }
   }
 }

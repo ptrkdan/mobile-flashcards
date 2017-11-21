@@ -18,8 +18,7 @@ class QuizResultsView extends Component {
   }
 
   render() {
-    const { score, totalQuestions, navigation } = this.props;
-    const { deck } = navigation.state.params;
+    const { score, totalQuestions, navigation, deck } = this.props;
     return (
       <View style={styles.container}>
         <View style={{ flex: 1 }}>
