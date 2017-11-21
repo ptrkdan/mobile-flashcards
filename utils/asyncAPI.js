@@ -2,7 +2,7 @@
 import { AsyncStorage } from 'react-native';
 
 
-const DECK_STORAGE_KEY = 'MobileFlashcard:decks';
+const DECK_STORAGE_KEY = 'MobileFlashcards:decks';
 
 /* Retrieve all deck. Returns object */
 export const getAllDecks = () => {

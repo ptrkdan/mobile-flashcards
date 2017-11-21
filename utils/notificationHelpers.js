@@ -11,8 +11,8 @@ export function clearLocalNotifications() {
 
 function createNotification() {
   return {
-    title: 'Mobile Flashcard Reminder',
-    body: 'Practise makes perfect! Practise right now!',
+    title: 'Mobile Flashcard Quiz Reminder',
+    body: 'Practice makes perfect! Don\'t forget to do your practice today!',
     ios: {
       sound: true
     },
@@ -28,15 +28,17 @@ export function setLocalNotification() {
   AsyncStorage.getItem(NOTIFICATION_KEY)
     .then(JSON.parse)
     .then( (data) => {
+      console.log('notification data: ', data);
       if (data === null) {
         Permissions.askAsync(Permissions.NOTIFICATIONS)
-          .then( ({ status}) => {
+          .then( ({ status }) => {
+            console.log('Notification permission status: ', status);
             if (status === 'granted') {
               Notifications.cancelAllScheduledNotificationsAsync()
 
               let tomorrow = new Date()
               tomorrow.setDate(tomorrow.getDate() + 1);
-              tomorrow.setHours(21);
+              tomorrow.setHours(18);
               tomorrow.setMinutes(0);
 
               Notifications.scheduleLocalNotificationAsync(
@@ -48,6 +50,7 @@ export function setLocalNotification() {
               );
 
               AsyncStorage.setItem(NOTIFICATION_KEY, JSON.stringify(true));
+              console.log(`Notification set to ${tomorrow.toString()}`)
             }
           });
       }

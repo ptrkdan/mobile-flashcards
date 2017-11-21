@@ -12,7 +12,6 @@ class Deck extends Component {
 
   render() {
     const { deck } = this.props;
-    console.log('in Deck: ', deck);
     return (
       <TouchableOpacity style={styles.container}
         onPress={this.onPress} >
