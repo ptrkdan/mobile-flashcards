@@ -21,12 +21,12 @@ class QuizResultsView extends Component {
   }
 
   componentDidMount() {
-    const { lastQuizDate } = this.props;
+    const { lastQuizDate, notificationHour, notificationMinute } = this.props.dailyQuizNotification;
     const today = new Date();
     // Compare last quiz date. If later, update and reset notification
     if (today !== lastQuizDate) {
       clearLocalNotifications();
-      setLocalNotification();
+      setLocalNotification(notificationHour, notificationMinute);
       // Set current date as last quiz date
       this.props.dispatch(setLastQuizDate(new Date()));
     }

@@ -63,3 +63,20 @@ export function setLastQuizDate(quizDate) {
     quizDate
   };
 }
+
+export const SET_DAILY_NOTIFICATION_ON = 'SET_DAILY_NOTIFICATION_ON';
+export function setDailyNotificationOn(isDailyNotificationOn) {
+  return {
+    type: SET_DAILY_NOTIFICATION_ON,
+    isDailyNotificationOn
+  };
+}
+
+export const SET_NOTIFICATION_TIME = 'SET_NOTIFICATION_TIME';
+export function setNotificationTime(notificationHour, notificationMinute) {
+  return {
+    type: SET_NOTIFICATION_TIME,
+    notificationHour,
+    notificationMinute
+  }
+}

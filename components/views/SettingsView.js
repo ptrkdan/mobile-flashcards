@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Text, Switch, TimePickerAndroid, TouchableOpacity, StyleSheet } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
+import { setDailyNotificationOn, setNotificationTime } from '../../actions';
+import { clearLocalNotifications, setLocalNotification } from '../../utils/notificationHelpers.js';
 import { beige, lightGreen, darkGreen, gray, white } from '../../utils/colours';
 
 class SettingsView extends Component {
@@ -29,6 +31,30 @@ class SettingsView extends Component {
         notificationMinute: minute
       });
     }
+  }
+
+  save = () => {
+    const { isDailyNotificationOn, notificationHour, notificationMinute } = this.state;
+    const { dispatch, navigation } = this.props;
+    dispatch(setDailyNotificationOn(isDailyNotificationOn));
+
+    clearLocalNotifications();
+    if(isDailyNotificationOn) {
+      dispatch(setNotificationTime(notificationHour, notificationMinute));
+      setLocalNotification(notificationHour, notificationMinute);
+    }
+
+    navigation.goBack(navigation.state.key);
+  }
+
+  componentDidMount() {
+    const { isDailyNotificationOn, notificationHour, notificationMinute } = this.props.dailyQuizNotification;
+
+    this.setState({
+      isDailyNotificationOn,
+      notificationHour,
+      notificationMinute
+    });
   }
 
   render() {
@@ -70,14 +96,16 @@ class SettingsView extends Component {
             </TouchableOpacity>
           </View>
           <View style={{ flexDirection: 'row', justifyContent: 'space-between', margin: 20 }}>
-            <TouchableOpacity style={[styles.button, styles.cancelButton]}>
+            <TouchableOpacity style={[styles.button, styles.cancelButton]}
+              onPress={() => navigation.goBack(navigation.state.key)}>
               <MaterialIcons
                 name={'arrow-back'}
                 size={30}
                 color={white}
               />
             </TouchableOpacity>
-            <TouchableOpacity style={[styles.button, styles.saveButton]}>
+            <TouchableOpacity style={[styles.button, styles.saveButton]}
+              onPress={this.save}>
               <Text style={{ fontSize: 24 }}>Save</Text>
             </TouchableOpacity>
           </View>

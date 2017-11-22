@@ -11,7 +11,7 @@ export const REPLACE_VIEW = 'REPLACE_VIEW';
 
 export const MainNavigator = StackNavigator({
   Home: {
-    screen: SettingsView
+    screen: RootView
   },
   IndividualDeckView: {
     screen: IndividualDeckView

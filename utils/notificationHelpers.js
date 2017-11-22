@@ -24,7 +24,7 @@ function createNotification() {
   };
 }
 
-export function setLocalNotification() {
+export function setLocalNotification(notificationHour, notificationMinute) {
   AsyncStorage.getItem(NOTIFICATION_KEY)
     .then(JSON.parse)
     .then( (data) => {
@@ -37,9 +37,9 @@ export function setLocalNotification() {
               Notifications.cancelAllScheduledNotificationsAsync()
 
               let tomorrow = new Date()
-              tomorrow.setDate(tomorrow.getDate() + 1);
-              tomorrow.setHours(21);
-              tomorrow.setMinutes(30);
+              // tomorrow.setDate(tomorrow.getDate() + 1);
+              tomorrow.setHours(notificationHour);
+              tomorrow.setMinutes(notificationMinute);
               tomorrow.setSeconds(0);
 
               Notifications.scheduleLocalNotificationAsync(
