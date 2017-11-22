@@ -72,8 +72,8 @@ const styles = StyleSheet.create({
 
 })
 
-const mapStateToProps = ({ items }) => {
-  return { decks: items };
+const mapStateToProps = ({ decks }) => {
+  return { decks: decks.items };
 }
 
 export default connect(mapStateToProps)(RootView);

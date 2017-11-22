@@ -9,6 +9,7 @@ import reducer from './reducers';
 import { MainNavigator } from './routes/MainNavigator';
 import { clearAllDecks } from './utils/asyncAPI';
 import { beige } from './utils/colours';
+import { clearLocalNotifications, setLocalNotification } from './utils/notificationHelpers.js';
 
 
 const store = createStore(reducer, applyMiddleware(thunk));
@@ -17,6 +18,8 @@ export default class App extends React.Component {
 
   componentDidMount() {
     // clearAllDecks();
+    // clearLocalNotifications();
+    setLocalNotification();
   }
 
   render() {

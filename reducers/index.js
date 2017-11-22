@@ -1,4 +1,6 @@
-import { REQUEST_DECKS, GET_ALL_DECKS, RECEIVE_DECK } from '../actions';
+import { combineReducers } from 'redux';
+import { REQUEST_DECKS, GET_ALL_DECKS, RECEIVE_DECK,
+         SET_LAST_QUIZ_DATE } from '../actions';
 
 const initState = {
   isFetching: false,
@@ -30,4 +32,14 @@ function decks(state = initState, action) {
   }
 }
 
-export default decks;
+function dailyQuizNotification(state = { lastQuizDate: null }, action) {
+  switch(action.type) {
+    case SET_LAST_QUIZ_DATE:
+      console.log('lastQuizDate: ', action.quizDate);
+      return { lastQuizDate: action.quizDate }
+    default:
+      return state;
+  }
+}
+
+export default combineReducers({ decks, dailyQuizNotification });

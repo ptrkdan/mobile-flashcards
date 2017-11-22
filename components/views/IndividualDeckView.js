@@ -79,8 +79,8 @@ const styles = StyleSheet.create({
   },
 });
 
-mapStateToProps = ({ items }) => {
-  return { decks: items };
+mapStateToProps = ({ decks }) => {
+  return { decks: decks.items };
 }
 
 export default connect(mapStateToProps)(IndividualDeckView);

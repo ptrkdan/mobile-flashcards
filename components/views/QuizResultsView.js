@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { NavigationActions } from 'react-navigation';
+import { setLastQuizDate } from '../../actions';
+import { clearLocalNotifications, setLocalNotification } from '../../utils/notificationHelpers.js';
 import { beige, gray } from '../../utils/colours';
 
 class QuizResultsView extends Component {
@@ -17,8 +20,21 @@ class QuizResultsView extends Component {
     );
   }
 
+  componentDidMount() {
+    const { lastQuizDate } = this.props;
+    const today = new Date();
+    // Compare last quiz date. If later, update and reset notification
+    if (today !== lastQuizDate) {
+      clearLocalNotifications();
+      setLocalNotification();
+      // Set current date as last quiz date
+      this.props.dispatch(setLastQuizDate(new Date()));
+    }
+  }
+
   render() {
     const { score, totalQuestions, navigation, deck } = this.props;
+
     return (
       <View style={styles.container}>
         <View style={{ flex: 1 }}>
@@ -69,4 +85,8 @@ const styles = StyleSheet.create({
 
 });
 
-export default QuizResultsView;
+mapStateToProps = ({ dailyQuizNotification }) => {
+  return { lastQuizDate: dailyQuizNotification.lastQuizDate };
+}
+
+export default connect(mapStateToProps)(QuizResultsView);

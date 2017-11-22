@@ -54,3 +54,12 @@ export function addCard(title, card) {
       .then( (deck) => dispatch(receiveDeck(deck)));
   };
 }
+
+/* Notifications */
+export const SET_LAST_QUIZ_DATE = 'SET_LAST_QUIZ_DATE';
+export function setLastQuizDate(quizDate) {
+  return {
+    type: SET_LAST_QUIZ_DATE,
+    quizDate
+  };
+}
