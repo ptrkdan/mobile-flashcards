@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Text, Switch, TimePickerAndroid, TouchableOpacity, StyleSheet } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
-import { setDailyNotificationOn, setNotificationTime } from '../../actions';
+import { setNotificiationSettings } from '../../actions';
 import { clearLocalNotifications, setLocalNotification } from '../../utils/notificationHelpers.js';
 import { beige, lightGreen, darkGreen, gray, white } from '../../utils/colours';
 
@@ -36,11 +36,10 @@ class SettingsView extends Component {
   save = () => {
     const { isDailyNotificationOn, notificationHour, notificationMinute } = this.state;
     const { dispatch, navigation } = this.props;
-    dispatch(setDailyNotificationOn(isDailyNotificationOn));
 
     clearLocalNotifications();
+    dispatch(setNotificiationSettings(this.state));
     if(isDailyNotificationOn) {
-      dispatch(setNotificationTime(notificationHour, notificationMinute));
       setLocalNotification(notificationHour, notificationMinute);
     }
 

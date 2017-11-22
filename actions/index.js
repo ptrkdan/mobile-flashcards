@@ -56,6 +56,7 @@ export function addCard(title, card) {
 }
 
 /* Notifications */
+
 export const SET_LAST_QUIZ_DATE = 'SET_LAST_QUIZ_DATE';
 export function setLastQuizDate(quizDate) {
   return {
@@ -78,5 +79,33 @@ export function setNotificationTime(notificationHour, notificationMinute) {
     type: SET_NOTIFICATION_TIME,
     notificationHour,
     notificationMinute
+  }
+}
+
+export function retrieveNotificationSettings() {
+
+  return function(dispatch) {
+
+    return AsyncAPI.getNotificationSettings()
+      .then((data) => {
+        if (!data) {
+          dispatch(setDailyNotificationOn(true));
+          dispatch(setNotificationTime(21, 0));
+        } else {
+          dispatch(setLastQuizDate(data.lastQuizDate));
+          dispatch(setDailyNotificationOn(data.isDailyNotificationOn));
+          dispatch(setNotificationTime(data.notificationHour, data.notificationMinute));
+        }
+      });
+  }
+}
+
+export function setNotificiationSettings(notificationSettings) {
+
+  return function(dispatch) {
+    dispatch(setLastQuizDate(notificationSettings.lastQuizDate));
+    dispatch(setDailyNotificationOn(notificationSettings.isDailyNotificationOn));
+    dispatch(setNotificationTime(notificationSettings.notificationHour, notificationSettings.notificationMinute));
+    return AsyncAPI.setNotificationSettings(notificationSettings);
   }
 }

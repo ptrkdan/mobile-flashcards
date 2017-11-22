@@ -3,6 +3,7 @@ import { AsyncStorage } from 'react-native';
 
 
 const DECK_STORAGE_KEY = 'MobileFlashcards:decks';
+const SETTINGS_KEY = 'MobileFlashcards:settings';
 
 /* Retrieve all deck. Returns object */
 export const getAllDecks = () => {
@@ -49,4 +50,20 @@ export const addCard = (title, card) => {
 /* Clear all decks */
 export const clearAllDecks = () => {
   return AsyncStorage.removeItem(DECK_STORAGE_KEY);
+}
+
+/* Get notification setting */
+export const getNotificationSettings = () => {
+  return AsyncStorage.getItem(SETTINGS_KEY)
+    .then(JSON.parse);
+}
+
+/* Save notification setting */
+export const setNotificationSettings = (notificationSettings) => {
+  return AsyncStorage.mergeItem(SETTINGS_KEY,
+    JSON.stringify(notificationSettings));
+}
+
+export const clearNotificationSettings = () => {
+  return AsyncStorage.removeItem(SETTINGS_KEY);
 }

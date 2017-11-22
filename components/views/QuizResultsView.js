@@ -21,6 +21,7 @@ class QuizResultsView extends Component {
   }
 
   componentDidMount() {
+    debugger;
     const { lastQuizDate, notificationHour, notificationMinute } = this.props.dailyQuizNotification;
     const today = new Date();
     // Compare last quiz date. If later, update and reset notification
@@ -86,7 +87,7 @@ const styles = StyleSheet.create({
 });
 
 mapStateToProps = ({ dailyQuizNotification }) => {
-  return { lastQuizDate: dailyQuizNotification.lastQuizDate };
+  return { dailyQuizNotification };
 }
 
 export default connect(mapStateToProps)(QuizResultsView);

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { MaterialIcons } from '@expo/vector-icons';
-import { retrieveAllDecks } from '../../actions';
+import { retrieveAllDecks, retrieveNotificationSettings } from '../../actions';
 import Deck from '../common/Deck';
 import { white, beige, lightGreen } from '../../utils/colours';
 
@@ -18,6 +18,7 @@ class RootView extends Component {
     const { dispatch } = this.props;
 
     dispatch(retrieveAllDecks());
+    dispatch(retrieveNotificationSettings());
   }
 
   render() {
