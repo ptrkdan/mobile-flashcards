@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
 import { NavigationActions } from 'react-navigation';
-import { addCard } from '../../actions';
-import { beige, lightGreen } from '../../utils/colours';
+import { addCard } from '../../actions/decks';
+import { beige, lightGreen, gray } from '../../utils/colours';
 
 class NewQuestionView extends Component {
 
@@ -13,16 +13,6 @@ class NewQuestionView extends Component {
     answer: '',
     isQuestionValid: true,
     isAnswerValid: true
-  }
-
-  validateForm = (question, answer) => {
-
-    this.setState({
-      isQuestionValid: !!question,
-      isAnswerValid: !!answer
-    });
-    
-    return (question && answer);
   }
 
   toDeckView = (title) => {
@@ -35,6 +25,16 @@ class NewQuestionView extends Component {
         ]
       })
     );
+  }
+
+  validateForm = (question, answer) => {
+
+    this.setState({
+      isQuestionValid: !!question,
+      isAnswerValid: !!answer
+    });
+    
+    return (question && answer);
   }
 
   submitQuestion = () => {
@@ -92,6 +92,8 @@ const styles = StyleSheet.create({
     backgroundColor: lightGreen,
     padding: 30,
     borderRadius: 4,
+    borderWidth: 1,
+    borderColor: gray,
     margin: 20
   },
   buttonTitle: {

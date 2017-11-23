@@ -17,9 +17,6 @@ const store = createStore(reducer, applyMiddleware(thunk));
 export default class App extends React.Component {
 
   componentDidMount() {
-    // clearAllDecks();
-    // clearNotificationSettings();
-    // clearLocalNotifications();
     setLocalNotification();
   }
 

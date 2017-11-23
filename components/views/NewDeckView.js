@@ -3,9 +3,8 @@ import { connect } from 'react-redux';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { FormLabel, FormInput, FormValidationMessage } from 'react-native-elements';
 import { NavigationActions } from 'react-navigation';
-import { addDeck } from '../../actions';
-import { beige, lightGreen } from '../../utils/colours';
-
+import { addDeck } from '../../actions/decks';
+import { beige, lightGreen, gray } from '../../utils/colours';
 
 class NewDeckView extends Component {
 
@@ -41,7 +40,6 @@ class NewDeckView extends Component {
 
   render() {
     const { title, isTitleValid } = this.state;
-    const { decks } = this.props;
 
     return (
       <View style={styles.container} >
@@ -76,6 +74,8 @@ const styles= StyleSheet.create({
     backgroundColor: lightGreen,
     padding: 20,
     borderRadius: 3,
+    borderWidth: 1,
+    borderColor: gray,
     marginTop:40
   }
 })

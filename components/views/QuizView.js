@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { white, beige, lightGreen, darkGreen, red } from '../../utils/colours';
+import { white, beige, lightGreen, darkGreen, red, gray } from '../../utils/colours';
 import QuizResultsView from './QuizResultsView';
 
 const QuestionCard = ({ question, toggleQA }) => {
@@ -98,7 +98,7 @@ class QuizView extends Component {
             </TouchableOpacity>
             <TouchableOpacity style={[styles.button, styles.buttonIncorrect]}
               onPress={this.nextQuestion}>
-              <Text style={styles.buttonTitle}>Incorrect</Text>
+              <Text style={[styles.buttonTitle, { color: white }]}>Incorrect</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -145,6 +145,8 @@ const styles = StyleSheet.create({
   button: {
     padding: 30,
     borderRadius: 4,
+    borderWidth: 1,
+    borderColor: gray,
     margin: 20,
   },
   toggleQAButton: {
@@ -155,7 +157,8 @@ const styles = StyleSheet.create({
     backgroundColor: lightGreen
   },
   buttonIncorrect: {
-    backgroundColor: red
+    backgroundColor: red,
+    borderColor: white
   },
   buttonTitle: {
     fontSize: 24,

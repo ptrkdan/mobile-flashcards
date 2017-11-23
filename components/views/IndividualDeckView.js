@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { beige, white, lightGreen } from '../../utils/colours';
+import { beige, white, lightGreen, gray } from '../../utils/colours';
 
 class IndividualDeckView extends Component {
 
@@ -56,22 +56,16 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 36,
-    fontFamily: 'Roboto',
     alignSelf: 'center',
     marginTop: 100,
   },
   button: {
     backgroundColor: lightGreen,
     padding: 30,
-    borderRadius: 4,
-    margin: 20,
-    shadowRadius: 5,
-    shadowOpacity: 0.8,
-    shadowColor: `rgba(0, 0, 0, 0.2)`,
-    shadowOffset: {
-      width: 2,
-      height: 5
-    }
+    borderRadius: 3,
+    borderWidth: 1,
+    borderColor: gray,
+    margin: 20
   },
   buttonTitle: {
     fontSize: 24,

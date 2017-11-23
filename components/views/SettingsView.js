@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { View, Text, Switch, TimePickerAndroid, TouchableOpacity, StyleSheet } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
-import { setNotificiationSettings } from '../../actions';
+import { setNotificiationSettings } from '../../actions/notifications';
 import { clearLocalNotifications, setLocalNotification } from '../../utils/notificationHelpers.js';
 import { beige, lightGreen, darkGreen, gray, white } from '../../utils/colours';
 
@@ -47,7 +47,7 @@ class SettingsView extends Component {
   }
 
   componentDidMount() {
-    const { isDailyNotificationOn, notificationHour, notificationMinute } = this.props.dailyQuizNotification;
+    const { isDailyNotificationOn, notificationHour, notificationMinute } = this.props.notifications;
 
     this.setState({
       isDailyNotificationOn,
@@ -58,7 +58,7 @@ class SettingsView extends Component {
 
   render() {
     const { isDailyNotificationOn, notificationHour, notificationMinute } = this.state;
-    const { navigation, dailyQuizNotification } = this.props;
+    const { navigation, notifications } = this.props;
 
     return (
       <View style={{ flex: 1, backgroundColor: beige }}>
@@ -159,8 +159,8 @@ const styles = StyleSheet.create({
   }
 });
 
-mapStateToProps = ({ dailyQuizNotification }) => {
-  return { dailyQuizNotification };
+mapStateToProps = ({ notifications }) => {
+  return { notifications };
 }
 
 export default connect(mapStateToProps)(SettingsView);

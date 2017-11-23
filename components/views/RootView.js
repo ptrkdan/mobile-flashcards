@@ -2,16 +2,18 @@ import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
 import { MaterialIcons } from '@expo/vector-icons';
-import { retrieveAllDecks, retrieveNotificationSettings } from '../../actions';
 import Deck from '../common/Deck';
-import { white, beige, lightGreen } from '../../utils/colours';
+import { retrieveAllDecks} from '../../actions/decks';
+import { retrieveNotificationSettings } from '../../actions/notifications';
+import { white, beige, lightGreen, gray } from '../../utils/colours';
 
 class RootView extends Component {
 
-  onPressNewDeck = () => {
+  toNewDeckView = () => {
     this.props.navigation.navigate('NewDeckView');
   }
 
+  // Used for FlatList component
   keyExtractor = (item, index) => index;
 
   componentDidMount() {
@@ -32,7 +34,7 @@ class RootView extends Component {
         </TouchableOpacity>
         <Text style={styles.header}>Mobile Flashcards</Text>
         <TouchableOpacity style={styles.button}
-          onPress={this.onPressNewDeck}>
+          onPress={this.toNewDeckView}>
           <Text style={{ fontSize: 20 }} >Create a New Deck</Text>
         </TouchableOpacity>
         <View style={styles.deckListContainer}>
@@ -73,7 +75,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: lightGreen,
     padding: 20,
-    borderRadius: 3
+    borderRadius: 3,
+    borderWidth:1,
+    borderColor: gray
   },
   settingsButton: {
     alignSelf: 'flex-end',
