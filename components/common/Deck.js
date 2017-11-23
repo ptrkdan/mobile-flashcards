@@ -11,7 +11,11 @@ export default class Deck extends Component {
   }
 
   render() {
-    const { deck } = this.props;
+    if (this.props.deck) {
+      const { deck } = this.props;
+    } else {
+      const deck = { title: '', questions: [] };
+    }
     return (
       <TouchableOpacity style={styles.container}
         onPress={this.toDeckView}>
