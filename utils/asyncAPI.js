@@ -1,8 +1,8 @@
 // AsyncStorage API calls
 import { AsyncStorage } from 'react-native';
 
-
-const DECK_STORAGE_KEY = 'MobileFlashcard:decks';
+const DECK_STORAGE_KEY = 'MobileFlashcards:decks';
+const SETTINGS_KEY = 'MobileFlashcards:settings';
 
 /* Retrieve all deck. Returns object */
 export const getAllDecks = () => {
@@ -49,4 +49,27 @@ export const addCard = (title, card) => {
 /* Clear all decks */
 export const clearAllDecks = () => {
   return AsyncStorage.removeItem(DECK_STORAGE_KEY);
+}
+
+/* Save last quiz date */
+export const setLastQuizDate = (lastQuizDate) => {
+  return AsyncStorage.mergeItem(SETTINGS_KEY,
+    JSON.stringify({ lastQuizDate }));
+}
+
+/* Get notification settings */
+export const getNotificationSettings = () => {
+  return AsyncStorage.getItem(SETTINGS_KEY)
+    .then(JSON.parse);
+}
+
+/* Save notification settings */
+export const setNotificationSettings = (notificationSettings) => {
+  return AsyncStorage.mergeItem(SETTINGS_KEY,
+    JSON.stringify(notificationSettings));
+}
+
+/* Clear notification settings */
+export const clearNotificationSettings = () => {
+  return AsyncStorage.removeItem(SETTINGS_KEY);
 }

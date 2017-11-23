@@ -1,21 +1,20 @@
 import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, Animated, StyleSheet } from 'react-native';
-import { lightGreen } from '../../utils/colours';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { lightGreen, gray } from '../../utils/colours';
 
-class Deck extends Component {
+export default class Deck extends Component {
 
 
-  onPress = () => {
+  toDeckView = () => {
     const { navigation, deck } = this.props;
     navigation.navigate('IndividualDeckView', { title: deck.title });
   }
 
   render() {
     const { deck } = this.props;
-    console.log('in Deck: ', deck);
     return (
       <TouchableOpacity style={styles.container}
-        onPress={this.onPress} >
+        onPress={this.toDeckView}>
         <Text style={{ fontSize: 24 }}>{deck.title}</Text>
         <Text style={{ fontSize: 20 }}>{deck.questions.length} cards</Text>
       </TouchableOpacity>
@@ -32,8 +31,8 @@ const styles = StyleSheet.create({
     paddingLeft: 50,
     paddingRight: 50,
     borderRadius: 3,
+    borderWidth:1,
+    borderColor: gray,
     margin: 20
   }
 });
-
-export default Deck;

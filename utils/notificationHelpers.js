@@ -3,7 +3,6 @@ import { Notifications, Permissions } from 'expo';
 
 const NOTIFICATION_KEY = 'MobileFlashcards:notifications';
 
-
 export function clearLocalNotifications() {
   return AsyncStorage.removeItem(NOTIFICATION_KEY)
     .then(Notifications.cancelAllScheduledNotificationsAsync);
@@ -11,11 +10,8 @@ export function clearLocalNotifications() {
 
 function createNotification() {
   return {
-    title: 'Mobile Flashcard Reminder',
-    body: 'Practise makes perfect! Practise right now!',
-    ios: {
-      sound: true
-    },
+    title: 'Mobile Flashcard Quiz Reminder',
+    body: 'Practice makes perfect! Don\'t forget to do your practice today!',
     android: {
       sound: true,
       sticky: false,
@@ -24,20 +20,21 @@ function createNotification() {
   };
 }
 
-export function setLocalNotification() {
+export function setLocalNotification(notificationHour, notificationMinute) {
   AsyncStorage.getItem(NOTIFICATION_KEY)
     .then(JSON.parse)
     .then( (data) => {
       if (data === null) {
         Permissions.askAsync(Permissions.NOTIFICATIONS)
-          .then( ({ status}) => {
+          .then( ({ status }) => {
             if (status === 'granted') {
               Notifications.cancelAllScheduledNotificationsAsync()
 
               let tomorrow = new Date()
               tomorrow.setDate(tomorrow.getDate() + 1);
-              tomorrow.setHours(21);
-              tomorrow.setMinutes(0);
+              tomorrow.setHours(notificationHour);
+              tomorrow.setMinutes(notificationMinute);
+              tomorrow.setSeconds(0);
 
               Notifications.scheduleLocalNotificationAsync(
                 createNotification(),

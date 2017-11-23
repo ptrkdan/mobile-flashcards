@@ -1,21 +1,17 @@
 import * as AsyncAPI from '../utils/asyncAPI';
+import * as Types from './types';
 
-export const REQUEST_DECKS = 'REQUEST_DECKS';
 function requestDecks() {
   return {
-    type: REQUEST_DECKS
+    type: Types.REQUEST_DECKS
   };
 }
-
-
-export const GET_ALL_DECKS = 'GET_ALL_DECKS';
 function receiveAllDecks(decks) {
   return {
-    type: GET_ALL_DECKS,
+    type: Types.GET_ALL_DECKS,
     decks
   }
 }
-
 export function retrieveAllDecks() {
 
   return function(dispatch) {
@@ -26,14 +22,13 @@ export function retrieveAllDecks() {
   };
 }
 
-export const RECEIVE_DECK = 'RECEIVE_DECK';
+
 function receiveDeck(deck) {
   return {
-    type: RECEIVE_DECK,
+    type: Types.RECEIVE_DECK,
     deck
   };
 }
-
 export function addDeck(title) {
 
   return function(dispatch) {
