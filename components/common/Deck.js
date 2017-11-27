@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { lightGreen, gray } from '../../utils/colours';
 
 export default class Deck extends Component {
-  defaultProps = {
+  static defaultProps = {
     deck: {
       title: '',
       questions: []
@@ -17,7 +17,7 @@ export default class Deck extends Component {
 
   render() {
     const { deck } = this.props;
-    
+
     return (
       <TouchableOpacity style={styles.container}
         onPress={this.toDeckView}>
