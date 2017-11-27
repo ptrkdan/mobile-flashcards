@@ -20,7 +20,7 @@ function createNotification() {
   };
 }
 
-export function setLocalNotification(notificationHour, notificationMinute) {
+export function setLocalNotification(notificationHour='21', notificationMinute='0') {
   AsyncStorage.getItem(NOTIFICATION_KEY)
     .then(JSON.parse)
     .then( (data) => {

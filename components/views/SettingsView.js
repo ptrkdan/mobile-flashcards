@@ -8,6 +8,14 @@ import { beige, lightGreen, darkGreen, gray, white } from '../../utils/colours';
 
 class SettingsView extends Component {
 
+  static defaultProps = {
+    notifications: {
+        isDailyNotificationOn: true,
+        notificationHour: 21,
+        notificationMinute: 30    
+      }
+  }
+
   state = {
     isDailyNotificationOn: true,
     notificationHour: 21,
@@ -59,6 +67,8 @@ class SettingsView extends Component {
   render() {
     const { isDailyNotificationOn, notificationHour, notificationMinute } = this.state;
     const { navigation, notifications } = this.props;
+    const notificationTime =  (notificationHour < 10 ? '0' + notificationHour.toString() : notificationHour) + ':' 
+      + (notificationMinute < 10 ? '0' + notificationMinute.toString() : notificationMinute);
 
     return (
       <View style={{ flex: 1, backgroundColor: beige }}>
@@ -89,7 +99,7 @@ class SettingsView extends Component {
                   size={40}
                 />
                 <Text style={{ fontSize: 40, marginLeft: 20 }}>
-                  {`${notificationHour.toString().padStart(2,'0')}:${notificationMinute.toString().padStart(2,'0')}`}
+                  {notificationTime}
                 </Text>
               </View>
             </TouchableOpacity>
@@ -159,8 +169,8 @@ const styles = StyleSheet.create({
   }
 });
 
-mapStateToProps = ({ notifications }) => {
-  return { notifications };
-}
+const mapStateToProps = ({ notifications }) => ({ notifications });
 
 export default connect(mapStateToProps)(SettingsView);
+
+//

@@ -27,7 +27,7 @@ export function retrieveNotificationSettings() {
 
     return AsyncAPI.getNotificationSettings()
       .then((data) => {
-        if (!data) {
+        if (!data.notificationHour || !data.notificationMinute) {
           dispatch(setDailyNotificationOn(true));
           dispatch(setNotificationTime(21, 0));
         } else {
