@@ -48,7 +48,7 @@ yarn start
 ## Notes
 ### Notifications
 - Daily notifications can be turned on or off in the `Settings View`
-- The user can decide on what time to be notified
+- The user can decide on what time to be notified. Default is 21:30
 - Pressing the `Save` button will save the settings, and return the user to the `Root View`
 - Pressing the `<--` button will return the user to the `Root View` without saving
 - Notifications will only be broadcasted if the user has not yet completed at least one quiz on that day
